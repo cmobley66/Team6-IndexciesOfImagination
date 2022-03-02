@@ -28,7 +28,101 @@
         platforms.create(256+xmod,128+ymod,img);
     }
     
-    
+    function zone(xpos,ypos){
+        if(xpos > 224 && xpos <=240&&ypos > 96 && ypos <= 112){
+            return "tl";
+        }
+        else if(xpos > 224 && xpos <=240&&ypos > 144 && ypos <= 160){
+            return "bl";
+        }
+        else if(xpos > 272 && xpos <= 288&&ypos > 144 && ypos <= 160){
+            return "br";
+        }
+        else if(xpos > 272 && xpos <= 288&&ypos > 96 && ypos <= 112){
+            return "tr";
+        }
+            
+               
+        
+        else if(xpos > 0 && xpos <= 208) {
+            if(ypos > 0 && ypos <= 80){
+                return 1;
+            }
+            else if(ypos > 80 && ypos <= 112){
+                return 2;
+            }
+            else if(ypos > 112 && ypos <= 144){
+                return 3;
+            }
+            else if(ypos > 144 && ypos <= 176){
+                return 4;
+            }
+            else{
+                return 5;
+            }
+        }
+        else if(xpos > 208 && xpos <= 240){
+            if(ypos > 0 && ypos <= 80){
+                return 6;
+            }
+            
+            else if(ypos > 112 && ypos <= 144){
+                return 7;
+            }
+            
+            else{
+                return 8;
+            }
+        }
+        else if(xpos > 240 && xpos <= 272){
+            if(ypos > 0 && ypos <= 72){
+                return 9;
+            }
+            else if(ypos > 80 && ypos <= 112){
+                return 10;
+            }
+            else if(ypos > 112 && ypos <= 144){
+                return 11;
+            }
+            else if(ypos > 144 && ypos <= 176){
+                return 12;
+            }
+            else{
+                return 13;
+            }
+        }
+        else if(xpos > 272 && xpos <= 304){
+            if(ypos > 0 && ypos <= 72){
+                return 14;
+            }
+            
+            else if(ypos > 112 && ypos <= 144){
+                return 15;
+            }
+            
+            else{
+                return 16;
+            }
+        }
+        else if(xpos > 304){
+            if(ypos > 0 && ypos <= 80){
+                return 17;
+            }
+            else if(ypos > 80 && ypos <= 112){
+                return 18;
+            }
+            else if(ypos > 112 && ypos <= 144){
+                return 19;
+            }
+            else if(ypos > 144 && ypos <= 176){
+                return 20;
+            }
+            else{
+                return 21;
+            }
+        }
+        
+    }
     var sceneOne = new Phaser.Class({
         Extends: Phaser.Scene,
         initialize:
@@ -54,6 +148,7 @@
                 this.load.image('fencebr','fence_bl.png');
                 this.load.image('fencebl','fence_br.png');
                 this.load.image('fheart','heart.png');
+                this.load.image('gob','goblin.png')
                 this.load.spritesheet('dude', 
                     './tempspritesheet.png',
                     { frameWidth: 16, frameHeight: 16 }
@@ -74,7 +169,7 @@
             scoreText = this.add.text(24, 0, 'Time: 9999', { fontSize: '16px', fill: '#FFF' });
             enemiesText = this.add.text(512-16*8, 0, 'Enemies: 24', { fontSize: '16px', fill: '#FFF' });
 
-            goblin = this.physics.add.sprite(360, 0, 'fheart');
+            goblin = this.physics.add.sprite(360, 0, 'gob');
             health = this.physics.add.staticGroup();
             var i = -3
             while(i<5){
@@ -148,6 +243,7 @@
         
         },
         update: function (){
+            
             scoreText = "Time:"+ Phaser.Timer;
             //player movement
             if (true){
@@ -206,32 +302,201 @@
                 }
             }
             //goblin movement
-            
-            setInterval(function(){
-                if (Math.abs(player.body.position.x - goblin.body.position.x)> Math.abs(player.body.position.y-goblin.body.position.y)){
-                    if(player.body.position.x - goblin.body.position.x>0){
-                        goblin.setVelocityX(100); 
-                    }
-                    else{
-                        goblin.setVelocityX(-100);
+            playerzone = zone(player.body.position.x,goblin.body.position.y);
+            gobzone = zone(goblin.body.position.x,goblin.body.position.y);
+            console.log("gob"+gobzone);
+            if(true){
+                if(playerzone == gobzone){
+                    if (Math.abs(player.body.position.x - goblin.body.position.x)> Math.abs(player.body.position.y-goblin.body.position.y)){
+                        if(player.body.position.x - goblin.body.position.x>0){
+                            goblin.setVelocityX(100); 
+                        }
+                        else{
+                            goblin.setVelocityX(-100);
+
+                        }
+                        goblin.setVelocityY(0);
                         
                     }
-                    goblin.setVelocityY(0);
-                    gobmove = false;
+                    else if (Math.abs(player.body.position.x - goblin.body.position.x)< Math.abs(player.body.position.y-goblin.body.position.y)){
+                        if(player.body.position.y - goblin.body.position.y>0){
+                            goblin.setVelocityY(100);
+                        }
+                        else{
+                            goblin.setVelocityY(-100);
+                        }
+                        goblin.setVelocityX(0);
+                        gobmove = false;
+                    }
                 }
-                else if (Math.abs(player.body.position.x - goblin.body.position.x)< Math.abs(player.body.position.y-goblin.body.position.y)){
-                    if(player.body.position.y - goblin.body.position.y>0){
+                else if(gobzone == "tl"){
+                    goblin.setVelocityX(100);
+                    goblin.setVelocityY(100);
+                }
+                else if(gobzone == "tr"){
+                    goblin.setVelocityX(-100);
+                    goblin.setVelocityY(100);
+                }
+                else if(gobzone == "bl"){
+                    goblin.setVelocityX(100);
+                    goblin.setVelocityY(-100);
+                }
+                else if(gobzone == "br"){
+                    goblin.setVelocityX(-100);
+                    goblin.setVelocityY(-100);
+                }
+                else if(gobzone == 1){
+                    if(playerzone ==6||playerzone ==9||playerzone == 10||playerzone == 11||playerzone >=14){
+                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0);
+                    }
+                    else if(playerzone == 2||playerzone == 3||playerzone == 4||playerzone == 5|| playerzone == 7 ||playerzone == 8||playerzone == 12||playerzone == 13){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100);
+                    }
+                }
+                else if(gobzone == 2||gobzone == 10||gobzone == 18){
+                    if(playerzone == 1||playerzone == 6||playerzone == 5||playerzone == 14||playerzone == 17){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100);
+                    }
+                    else{
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100);
+                    }
+                }
+                else if(gobzone == 3){
+                    if(playerzone > 5){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100);
+                    }
+                    else if(playerzone == 2||playerzone == 1){
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
+                    }
+                    else if(playerzone == 4||playerzone == 5){
+                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0);
+                    }
+                }
+                else if(gobzone == 4||gobzone == 12||gobzone == 20){
+                    if(playerzone == 5||playerzone == 8||playerzone == 13||playerzone == 16||playerzone == 21){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100);
+                    }
+                    else{
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100);
+                    }
+                }
+                else if(gobzone == 5){
+                    if(playerzone ==1||playerzone ==2||playerzone ==3||playerzone ==4||playerzone ==6||playerzone ==7||playerzone ==9||playerzone ==10||playerzone ==11||playerzone ==14||playerzone ==15||playerzone ==17||playerzone ==18||playerzone ==19||playerzone ==20){
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0)
+                    }
+                    if(playerzone ==8|playerzone ==12||playerzone == 13||playerzone ==16||playerzone ==21){
+                        goblin.setVelocityX(0)
+                        goblin.setVelocityY(100);
+                    }
+                    
+                        
+                }
+                else if(gobzone == 6||gobzone ==7||gobzone ==8){
+                    if(playerzone <=5){
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
+                    }
+                    else{
+                     goblin.setVelocityX(100);
+                        goblin.setVelocityY(0);
+                    }
+                }
+                else if(gobzone == 9){
+                    
+                }
+                else if(gobzone == 11){
+                    if(playerzone <=5|| playerzone == 7){
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0)
+                    }
+                    else if(playerzone >= 17|| playerzone == 15){
+                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0)
+                    }
+                    else if(playerzone == 6||playerzone == 9||playerzone == 10||playerzone ==14){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100)
+                    }
+                    else if(playerzone == 8||playerzone == 12||playerzone == 13||playerzone ==16){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100)
+                    }
+                }
+                else if(gobzone == 13){
+                    if(playerzone <= 5){
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0)
+                    }
+                    else if(playerzone >=17){
+                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0)
+                    }
+                    else{
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100)
+                    }
+                }
+                else if(gobzone == 14||gobzone ==15||gobzone ==16){
+                    if(playerzone >=17){
+                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0);
+                    }
+                    else{
+                     goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
+                    }
+                }
+                else if(gobzone == 17){
+                    if(playerzone >= 15){
+                        goblin.setVelocityX(0);
                         goblin.setVelocityY(100);
                     }
                     else{
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0)
+                    }
+                }
+                else if(gobzone ==19){
+                    if(playerzone == 17|| playerzone == 18||playerzone == 14){
+                        goblin.setVelocityX(0);
                         goblin.setVelocityY(-100);
                     }
-                    goblin.setVelocityX(0);
-                    gobmove = false;
+                    else if(playerzone == 20||playerzone == 21||playerzone ==16){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100);
+                    }
+                    else{
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
+                    }
                 }
-            },5000);
-        }
+                else if(gobzone == 21){
+                    if(playerzone >= 17||playerzone == 14|| playerzone == 15){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100);
+                    }
+                    else{
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
+                    }
+                }
+            }
             
+            
+                
+            
+        }
+        
         
     });
     
