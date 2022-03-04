@@ -138,15 +138,15 @@
             
             //images
             if (true){
-                this.load.image('map1', 'tempmap1.png');
-                this.load.image('fence1','fence_1.png');
-                this.load.image('fence2','fence_2.png');
-                this.load.image('fence3','fence_3.png');
-                this.load.image('fence4','fence_4.png');
-                this.load.image('fencetl','fence_tl.png');
-                this.load.image('fencetr','fence_tr.png');
-                this.load.image('fencebr','fence_bl.png');
-                this.load.image('fencebl','fence_br.png');
+                this.load.image('map1', 'enviormentAssets/tempmap1.png');
+                this.load.image('fence1','enviormentAssets/fence_1.png');
+                this.load.image('fence2','enviormentAssets/fence_2.png');
+                this.load.image('fence3','enviormentAssets/fence_3.png');
+                this.load.image('fence4','enviormentAssets/fence_4.png');
+                this.load.image('fencetl','enviormentAssets/fence_tl.png');
+                this.load.image('fencetr','enviormentAssets/fence_tr.png');
+                this.load.image('fencebr','enviormentAssets/fence_bl.png');
+                this.load.image('fencebl','enviormentAssets/fence_br.png');
                 this.load.image('fheart','heart.png');
                 this.load.image('gob','goblin.png')
                 this.load.spritesheet('dude', 
@@ -301,10 +301,15 @@
                     player.setVelocityX(0);
                 }
             }
+            if (true){
+                if(cursors.space.isDown){
+                    console.log("attack")
+                }
+            }
             //goblin movement
             playerzone = zone(player.body.position.x,goblin.body.position.y);
             gobzone = zone(goblin.body.position.x,goblin.body.position.y);
-            console.log("gob"+gobzone);
+            //console.log("gob"+gobzone);
             if(true){
                 if(playerzone == gobzone){
                     if (Math.abs(player.body.position.x - goblin.body.position.x)> Math.abs(player.body.position.y-goblin.body.position.y)){
