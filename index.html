@@ -9,18 +9,58 @@
     
     var score = 9999;
     var scoreText;
-    var enemiesLeft = "xx";
+    var enemiesLeft = 99;
     var enemiesText;
     var gobmove =true;
     var dir = 4
     
-    function bpress (){
-        score -= 10;
-        scoreText.setText('Time: ' + score);
+    function kenemy (enemy){
+        
+        //if(enemy.type == goblin){
+        //score+= 100
+        //}
+        
+        scoreText.setText('Score: ' + score);
         console.log(score)
-        if(score <= 0){
-            scoreText.setText('Click Screen: ' + score);
+        
+    }
+    function enemydamage(health,damage,enemy){
+        health = health-damage;
+        if(health <= 0){
+            kenemy(enemy);
         }
+        return health;
+    }
+    function queryscene(){
+        if(enemiesLeft == 0){
+            //load the inbetween map scene
+        }
+    }
+    function healing(health,value){
+        health = health +value
+        return health
+    }
+    function isdead(){
+        //load gameover scene  
+    }
+    //fix this
+    function playerdamage(health,damage){
+        i = 5;
+        health = health - damage
+        console.log('update')
+        while(i<(health/2)-(health/2)%1){
+                chealth(-8+16*i,'fheart');
+                i += 1;
+        }
+        if(i < 5 && (health/2)%1 != 0){
+            chealth(-8+16*i,'hheart')
+            i += 1
+        }
+        while(i<5){
+            chealth(-8+16*i,'bheart');
+        }
+        return health;
+        
     }
     function chealth(xmod,img,ymod = 8){
         health.create(256+xmod,ymod,img);
@@ -140,15 +180,17 @@
             //images
             if (true){
                 this.load.image('map1', 'enviormentAssets/grasslandmap.png');
-                this.load.image('fence1','enviormentAssets/Mossy_Wall.png');
-                this.load.image('fence2','enviormentAssets/Mossy_Wall.png');
-            this.load.image('fence3','enviormentAssets/Mossy_Wall.png');
-                this.load.image('fence4','enviormentAssets/Mossy_Wall.png');
-                this.load.image('fencetl','enviormentAssets/fence_tl.png');
-                this.load.image('fencetr','enviormentAssets/fence_tr.png');
-                this.load.image('fencebr','enviormentAssets/fence_bl.png');
-                this.load.image('fencebl','enviormentAssets/fence_br.png');
+                this.load.image('fence1','fences.png');
+                this.load.image('fence2','fences.png');
+                this.load.image('fence3','fences.png');
+                this.load.image('fence4','fences.png');
+                this.load.image('fencetl','fences.png');
+                this.load.image('fencetr','fences.png');
+                this.load.image('fencebr','fences.png');
+                this.load.image('fencebl','fences.png');
                 this.load.image('fheart','heart.png');
+                this.load.image('hheart','bat.png');
+                this.load.image('bheart','empty_heart.png');
                 this.load.image('gob','goblin.png')
                 this.load.image('pattack','enviormentAssets/Small_rock.png');
                 this.load.spritesheet('dude', 
@@ -198,7 +240,7 @@
                 cbar(40,24, 'fence2');
                 cbar(40, 40, 'fencebl');
                 cbar(24, 40, 'fence3');
-            }
+            } 
             
             player = this.physics.add.sprite(360, 168, 'dude');
             
@@ -242,7 +284,8 @@
             this.physics.add.collider(player, platforms);
             this.physics.add.collider(player,goblin);
             this.physics.add.collider(platforms,goblin);
-            this.physics.add.collider(goblin,pattack);
+            
+            //this.physics.arcade.collide(goblin,pattack,enemydamage(2,.5,goblin));
             
             //goblin.create(256,128,'fheart');
         
@@ -317,38 +360,38 @@
             }
             if (true){
                 if(cursors.space.isDown){
-                    console.log("attack");
+                    console.log(dir);
                     if(dir == 0){
                         pattack.create(player.body.position.x,player.body.position.y -8,'pattack');
                     }
                     else if(dir == 1){
-                        pattack.create(player.body.position.x +4,player.body.position.y -4,'pattack');
+                        pattack.create(player.body.position.x +16,player.body.position.y +4,'pattack');
                     }
                     else if(dir == 2){
-                        pattack.create(player.body.position.x + 8,player.body.position.y,'pattack');
+                        pattack.create(player.body.position.x + 16,player.body.position.y+8,'pattack');
                     }
                     else if(dir == 3){
-                        pattack.create(player.body.position.x +4,player.body.position.y +4,'pattack');
+                        pattack.create(player.body.position.x +12,player.body.position.y +12,'pattack');
                     }
                     else if(dir == 4){
-                        pattack.create(player.body.position.x,player.body.position.y +8,'pattack');
+                        pattack.create(player.body.position.x+8,player.body.position.y +16,'pattack');
                     }
                     else if(dir == 5){
-                        pattack.create(player.body.position.x -4,player.body.position.y +4,'pattack');
+                        pattack.create(player.body.position.x +4,player.body.position.y+8 +4,'pattack');
                     }
                     else if(dir == 6){
-                        pattack.create(player.body.position.x -8,player.body.position.y ,'pattack');
+                        pattack.create(player.body.position.x ,player.body.position.y+8 ,'pattack');
                     }
                     else if(dir == 7){
-                        pattack.create(player.body.position.x -4,player.body.position.y -4,'pattack');
+                        pattack.create(player.body.position.x +4,player.body.position.y +4,'pattack');
                     }
                 }
             }
             //goblin movement
             playerzone = zone(player.body.position.x,player.body.position.y);
             gobzone = zone(goblin.body.position.x,goblin.body.position.y);
-            console.log("gob"+gobzone);
-            console.log(playerzone)
+            //console.log("gob"+gobzone);
+            //console.log(playerzone)
             if(true){
                 if(playerzone == gobzone){
                     if (Math.abs(player.body.position.x - goblin.body.position.x)> Math.abs(player.body.position.y-goblin.body.position.y)){
@@ -400,7 +443,7 @@
                     }
                 }
                 else if(gobzone == 2||gobzone == 10||gobzone == 18){
-                    if(playerzone == 1||playerzone == 6||playerzone == 5||playerzone == 14||playerzone == 17){
+                    if(playerzone == 1||playerzone == 6||playerzone == 5||playerzone == 14||playerzone == 17|| playerzone == 9){
                         goblin.setVelocityX(0);
                         goblin.setVelocityY(-100);
                     }
@@ -410,21 +453,18 @@
                     }
                 }
                 else if(gobzone == 3){
-                    if(playerzone > 5){
+                    if(playerzone >= 4){
                         goblin.setVelocityX(0);
                         goblin.setVelocityY(100);
                     }
                     else if(playerzone == 2||playerzone == 1){
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(-100);
                     }
-                    else if(playerzone == 4||playerzone == 5){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
+                    
                 }
                 else if(gobzone == 4||gobzone == 12||gobzone == 20){
-                    if(playerzone == 2||playerzone == 5||playerzone == 8||playerzone == 13||playerzone == 18||playerzone == 17){
+                    if(playerzone == 2||playerzone == 3||playerzone == 8||playerzone == 18||playerzone == 17||playerzone == 19||playerzone == 11){
                         goblin.setVelocityX(0);
                         goblin.setVelocityY(-100);
                     }
@@ -450,6 +490,7 @@
                         goblin.setVelocityX(-100);
                         goblin.setVelocityY(0);
                     }
+                    
                     else{
                      goblin.setVelocityX(100);
                         goblin.setVelocityY(0);
@@ -458,6 +499,15 @@
                 else if(gobzone == 9){
                     if(playerzone >= 14){
                        goblin.setVelocityX(100);
+                        goblin.setVelocityY(0); 
+                    }
+                    else if(playerzone == 11||playerzone ==10||playerzone ==12 || playerzone == 13|| playerzone == 7){
+                        goblin.setVelocityX(0);
+                        goblin.setVelocityY(100); 
+                    }
+                    
+                    else{
+                        goblin.setVelocityX(-100);
                         goblin.setVelocityY(0); 
                     }
                 }
@@ -480,7 +530,7 @@
                     }
                 }
                 else if(gobzone == 13){
-                    if(playerzone <= 5||playerzone == 8||playerzone == 11){
+                    if(playerzone <= 5||playerzone == 8){
                         goblin.setVelocityX(-100);
                         goblin.setVelocityY(0)
                     }
@@ -544,8 +594,8 @@
                     }
                     
                     else{
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
+                        goblin.setVelocityX(-100);
+                        goblin.setVelocityY(0);
                     }
                 }
                 else if(gobzone == 21){
