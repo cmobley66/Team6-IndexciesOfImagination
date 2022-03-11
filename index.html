@@ -180,14 +180,18 @@
             //images
             if (true){
                 this.load.image('map1', 'enviormentAssets/grasslandmap.png');
-                this.load.image('fence1','fences.png');
-                this.load.image('fence2','fences.png');
-                this.load.image('fence3','fences.png');
-                this.load.image('fence4','fences.png');
-                this.load.image('fencetl','fences.png');
-                this.load.image('fencetr','fences.png');
-                this.load.image('fencebr','fences.png');
-                this.load.image('fencebl','fences.png');
+                this.load.image('fence1','enviormentAssets/fence_ltl.png');
+                this.load.image('fence5','enviormentAssets/fence_ubl.png');
+                this.load.image('fence2','enviormentAssets/fence_btr.png');
+                this.load.image('fence6','enviormentAssets/fence_ubr.png');
+                this.load.image('fence3','enviormentAssets/fence_lbl.png');
+                this.load.image('fence7','enviormentAssets/fence_lbr.png');
+                this.load.image('fence4','enviormentAssets/fence_utl.png');
+                this.load.image('fence8','enviormentAssets/fence_utr.png');
+                this.load.image('fencetl','enviormentAssets/fence_tl.png');
+                this.load.image('fencetr','enviormentAssets/fence_tr.png');
+                this.load.image('fencebr','enviormentAssets/fence_br.png');
+                this.load.image('fencebl','enviormentAssets/fence_bl.png');
                 this.load.image('fheart','heart.png');
                 this.load.image('hheart','bat.png');
                 this.load.image('bheart','empty_heart.png');
@@ -225,21 +229,21 @@
             
             if (true){
                 platforms = this.physics.add.staticGroup();
-                cbar(-40, -24, 'fence1');
-                cbar(-40,-40, 'fencetl');
-                cbar(-24, -40, 'fence4');
+                cbar(-38, -22, 'fence1');
+                cbar(-38,-38, 'fencetl');
+                cbar(-24, -38, 'fence4');
 
-                cbar(40,-24, 'fence2')
-                cbar(40, -40, 'fencetr');
-                cbar(24, -40, 'fence4');
+                cbar(38,-20, 'fence2')
+                cbar(38, -36, 'fencetr');
+                cbar(22, -36, 'fence8');
 
-                cbar(-40, 24, 'fence1');
-                cbar(-40, 40, 'fencebr');
+                cbar(-38, 24, 'fence5');
+                cbar(-38, 38, 'fencebl');
                 cbar(-24, 40, 'fence3');
 
-                cbar(40,24, 'fence2');
-                cbar(40, 40, 'fencebl');
-                cbar(24, 40, 'fence3');
+                cbar(38,24, 'fence6');
+                cbar(38, 38, 'fencebr');
+                cbar(22, 40, 'fence7');
             } 
             
             player = this.physics.add.sprite(360, 168, 'dude');
