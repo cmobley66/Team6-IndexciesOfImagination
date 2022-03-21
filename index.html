@@ -334,6 +334,7 @@
                 }
                 else if (cursors.left.isDown){
                     player.setVelocityX(-100);
+                    player.setVelocityY(0);
                     //bpress();
 
                     player.anims.play('left', true);
@@ -341,18 +342,13 @@
                 }
                 else if (cursors.right.isDown){
                     player.setVelocityX(100);
+                    player.setVelocityY(0);
                     //bpress();
                     player.anims.play('right', true);
                     dir =2
                 }
 
-                else if (cursors.up.isDown)
-                {
-                    player.setVelocityY(-100);
-                    //bpress(player);
-                    player.anims.play('up', true);
-                    dir = 0
-                }
+               
                 else if (cursors.down.isDown)
                 {
                     player.setVelocityY(100);
@@ -372,49 +368,49 @@
                         pattack.create(player.body.position.x,player.body.position.y -8,'pattack_UP');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, //player.body.position.y);
                     }
                     else if(dir == 1){
                         pattack.create(player.body.position.x +16,player.body.position.y +4,'pattack_UP');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, //player.body.position.y);
                     }
                     else if(dir == 2){
                         pattack.create(player.body.position.x + 16,player.body.position.y+8,'pattack_RIGHT');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, //player.body.position.y);
                     }
                     else if(dir == 3){
                         pattack.create(player.body.position.x +12,player.body.position.y +12,'pattack_RIGHT');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, //player.body.position.y);
                     }
                     else if(dir == 4){
                         pattack.create(player.body.position.x+8,player.body.position.y +16,'pattack_DOWN');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, player.body.position.y);
                     }
                     else if(dir == 5){
                         pattack.create(player.body.position.x +4,player.body.position.y+8 +4,'pattack_DOWN');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, player.body.position.y);
                     }
                     else if(dir == 6){
                         pattack.create(player.body.position.x ,player.body.position.y+8 ,'pattack_LEFT');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, player.body.position.y);
                     }
                     else if(dir == 7){
                         pattack.create(player.body.position.x +4,player.body.position.y +4,'pattack_LEFT');
                         goblin.setActive(false).setVisible(false);
                         goblin.destory();
-                        pattack.destory(player.body.positon.x, player.body.position.y);
+                        //pattack.destory(player.body.positon.x, player.body.position.y);
                     }
                 }
             }
