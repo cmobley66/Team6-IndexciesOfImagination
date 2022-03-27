@@ -164,6 +164,16 @@
         }
         
     }
+    function subplains(xpos,ypos,playerx,playery){
+        if(xpos >= 512 &&xpos <= 1024&&ypos>=256&&ypos<=512){
+            return [player.body.position.x,player.body.position.y]
+        }
+        else{
+            return [704,288]
+        }
+        
+    }
+    //main zone incomplete
     function zone (xpos,ypos){
         if (xpos >= 16 &&xpos <=16*7&&ypos >=16 &&ypos <= 16*45){
             return 'sand'
@@ -318,8 +328,8 @@
             //load things
             platforms = this.physics.add.staticGroup();
             if (true){
-                //platforms.create(672,512,'fheart')
-                //platforms.create(736,576,'fheart')
+                platforms.create(512,382,'fheart')
+                platforms.create(1024,512,'fheart')
                 //temp barriers
                 if (true){
                     cbar(-40, -22-16*6, 'grock');
@@ -860,28 +870,51 @@
             //goblin movement
             playerzone = zone(player.body.position.x,player.body.position.y);
             gobzone = zone(goblin.body.position.x,goblin.body.position.y);
+            pcalc = [512*3/2,256*3/2]
+            if (playerzone == gobzone){
+                if (playerzone == 'grass'){
+                    pcalc = subplains(goblin.body.position.x,goblin.body.position.y,player.body.position.x,player.body.position.y)
+                }
+                else if(playerzone == 'sand'){
+                    console.log('make desert function')
+                }
+                else if(playerzone == 'mountain'){
+                    console.log('make mountain function')
+                }
+                else if(playerzone == 'fire'){
+                    console.log('make fire function')
+                }
+                else if(playerzone == 'swamp'){
+                    console.log('make swamp function')
+                }
+            }
+            else if(gobzone == 'grass'){
+                if(playerzone =='sand'){
+                  pcalc =[512,382]  
+                }
+            }
             console.log("gob"+gobzone);
             console.log(playerzone)
             //enemyzone
             if(true){
                 if(playerzone == gobzone){
-                    if (Math.abs(player.body.position.x - goblin.body.position.x)> Math.abs(player.body.position.y-goblin.body.position.y)){
+                    if (Math.abs(pcalc[0] - goblin.body.position.x)> Math.abs(pcalc[1]-goblin.body.position.y)){
                         if(player.body.position.x - goblin.body.position.x>0){
-                            goblin.setVelocityX(100); 
+                            goblin.setVelocityX(velocity); 
                         }
                         else{
-                            goblin.setVelocityX(-100);
+                            goblin.setVelocityX(-velocity);
 
                         }
                         goblin.setVelocityY(0);
                         
                     }
-                    else if (Math.abs(player.body.position.x - goblin.body.position.x)< Math.abs(player.body.position.y-goblin.body.position.y)){
+                    else if (Math.abs(pcalc[0] - goblin.body.position.x)< Math.abs(pcalc[1]-goblin.body.position.y)){
                         if(player.body.position.y - goblin.body.position.y>0){
-                            goblin.setVelocityY(100);
+                            goblin.setVelocityY(velocity);
                         }
                         else{
-                            goblin.setVelocityY(-100);
+                            goblin.setVelocityY(-velocity);
                         }
                         goblin.setVelocityX(0);
                         gobmove = false;
