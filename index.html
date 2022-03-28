@@ -67,8 +67,30 @@
                 }
             }
             //bottom left rect
+            if(xpos >=544&& xpos<=736&&ypos>=416&& ypos<=480){
+                if(playerx >=544&& playerx<=736&&playery>=416&& playery<=480){
+                    return  [player.body.position.x,player.body.position.y] 
+                }
+                else if((xpos>=544 && xpos<=560&& ypos >=416 && ypos <= 480)||(xpos>=560 && xpos<=576&& ypos >=432 && ypos <= 480)||(xpos>=576 && xpos<=582&& ypos >=448 && ypos <= 480)||(xpos>=582 && xpos<=598&& ypos >=464 && ypos <= 480)){ 
+                    return [0,ypos]
+                }
+                else{
+                    return [xpos,9000]
+                }
+            }
             //bottom right rect
-            
+            else if(xpos>= 800 && xpos<=992&&ypos>= 416&& ypos<=480){
+                if(playerx>= 800 && playerx<=992&&playery>= 416&& playery<=480){
+                    return [0,player.body.position.y]
+                }
+                else if((xpos >=976 && xpos <= 992 && ypos>=416&&ypos<=480)||(xpos >=960 && xpos <= 976 && ypos>=432&&ypos<=480)||(xpos >=944 && xpos <= 960 && ypos>=448&&ypos<=480)||(xpos >=928 && xpos <= 944 && ypos>=464&&ypos<=480)){
+                    return [9000,ypos]
+                }
+                else{
+                    return[xpos,9000] 
+                }
+            }
+            //those 4 squares in the center area
             else if((xpos >=736&& xpos<=752&&ypos >= 352&&ypos <=368)||(xpos >=736&& xpos<=752&&ypos >=400 &&ypos <=416)||(xpos >=784&& xpos<=800&&ypos >= 352&&ypos <=368)||(xpos >=784&& xpos<=800&&ypos >=400 &&ypos <=416)){
                 return [512+256,256+128]
             }
@@ -218,16 +240,12 @@
             goblin = this.physics.add.sprite(512, 256+32, 'gob');
             health = this.physics.add.staticGroup();
             pattack = this.physics.add.staticGroup();
-            var i = -3
-            //while(i<5){
-                //chealth(-8+16*i,'fheart');
-                //i += 1;
-            //}
+            
             //load things
             pathfind =this.physics.add.staticGroup();
             platforms = this.physics.add.staticGroup();
-            platforms.create(784,400,'fheart')
-            platforms.create(800,352,'fheart')
+            platforms.create(992,416,'fheart')
+            platforms.create(800,480,'fheart')
             things() 
             //test regions
             /*if (true){
