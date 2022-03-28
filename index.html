@@ -12,7 +12,7 @@
     var enemiesLeft = 99;
     var enemiesText;
     var gobmove =true;
-    var dir = 4
+    
     
     function kenemy (enemy){
         
@@ -24,148 +24,54 @@
         console.log(score)
         
     }
-    function enemydamage(health,damage,enemy){
+    /*function enemydamage(health,damage,enemy){
         health = health-damage;
         if(health <= 0){
             kenemy(enemy);
         }
         return health;
-    }
+    }*/
     function queryscene(){
         if(enemiesLeft == 0){
             //load the inbetween map scene
         }
     }
-//    function healing(health,value){
-//        health = health +value
-//        return health
-//    }
- /*   function isdead(){
-        //load gameover scene  
-    }*/
-    //fix this
-/*    function playerdamage(health,damage){
-        i = 5;
-        health = health - damage
-        console.log('update')
-        while(i<(health/2)-(health/2)%1){
-                chealth(-8+16*i,'fheart');
-                i += 1;
-        }
-        if(i < 5 && (health/2)%1 != 0){
-            chealth(-8+16*i,'hheart')
-            i += 1
-        }
-        while(i<5){
-            chealth(-8+16*i,'bheart');
-        }
-        return health;
-        
-    }
-    function chealth(xmod,img,ymod = 8){
-        health.create(256+xmod,ymod,img);
-    }*/
+
     function cbar(xmod,ymod,img){
         platforms.create(256+512+xmod,128+256+ymod,img);
     }
     
-    function zonedup(xpos,ypos){
-        if(xpos > 224 && xpos <=240&&ypos > 96 && ypos <= 112){
-            return "tl";
-        }
-        else if(xpos > 224 && xpos <=240&&ypos > 144 && ypos <= 160){
-            return "bl";
-        }
-        else if(xpos > 272 && xpos <= 288&&ypos > 144 && ypos <= 160){
-            return "br";
-        }
-        else if(xpos > 272 && xpos <= 288&&ypos > 96 && ypos <= 112){
-            return "tr";
-        }
-            
-               
-        
-        else if( xpos <= 208) {
-            if( ypos <= 80){
-                return 1;
-            }
-            else if( ypos <= 112){
-                return 2;
-            }
-            else if(ypos > 112 && ypos <= 144){
-                return 3;
-            }
-            else if(ypos > 144 && ypos <= 176){
-                return 4;
-            }
-            else{
-                return 5;
-            }
-        }
-        else if( xpos <= 240){
-            if( ypos <= 80){
-                return 6;
-            }
-            
-            else if( ypos <= 144){
-                return 7;
-            }
-            
-            else if (ypos >144){
-                return 8;
-            }
-        }
-        else if( xpos <= 272){
-            if( ypos <= 72){
-                return 9;
-            }
-            else if( ypos <= 112){
-                return 10;
-            }
-            else if( ypos <= 144){
-                return 11;
-            }
-            else if( ypos <= 176){
-                return 12;
-            }
-            else if(ypos > 176){
-                return 13;
-            }
-        }
-        else if(xpos > 272 && xpos <= 304){
-            if(ypos > 0 && ypos <= 72){
-                return 14;
-            }
-            
-            else if(ypos > 112 && ypos <= 144){
-                return 15;
-            }
-            
-            else{
-                return 16;
-            }
-        }
-        else if(xpos > 304){
-            if( ypos <= 80){
-                return 17;
-            }
-            else if(ypos > 80 && ypos <= 112){
-                return 18;
-            }
-            else if(ypos > 112 && ypos <= 144){
-                return 19;
-            }
-            else if(ypos > 144 && ypos <= 176){
-                return 20;
-            }
-            else{
-                return 21;
-            }
-        }
-        
-    }
+    
     function subplains(xpos,ypos,playerx,playery){
         if(xpos >= 512 &&xpos <= 1024&&ypos>=256&&ypos<=512){
+            if(xpos >= 544 && xpos<= 736&& ypos>=288 && ypos <=352){
+                if(playerx >= 544 && playerx<= 736&& playery>=288 && playery <=352){
+                  return [player.body.position.x,player.body.position.y]  
+                }
+                else if((xpos>=544&&xpos<=560&&ypos>=288&&ypos<=352)||(xpos>=560&&xpos<=576&&ypos>=304&&ypos<=352)||(xpos>=576&&xpos<=592&&ypos>=320&&ypos<=352)||(xpos>=544&&xpos<=560&&ypos>=336&&ypos<=352)){
+                    return [536,ypos]
+                }
+                else{
+                    return [xpos,280]
+                }
+            }
+            else if(xpos >=800 && xpos<=992&&ypos >=288&&ypos<=352){
+                if(playerx >=800 && playerx<=992&&playery >=288&&playery<=352){
+                    return [player.body.position.x,player.body.position.y]
+                }
+                else if((xpos>=976&&xpos<=992&&ypos>=288&&ypos<=352)||(xpos>=960&&xpos<=976&&ypos>=304&&ypos<=352)||(xpos>=944&&xpos<=960&&ypos>=320&&ypos<=352)||(xpos>=928&&xpos<=944&&ypos>=236&&ypos<=352)){
+                    return [10000,ypos]
+                }
+                else{
+                    return [xpos,280]
+                }
+            }
+            //bottom left rect
+            //bottom right rect
+            
+            else if((xpos >=736&& xpos<=752&&ypos >= 352&&ypos <=368)||(xpos >=736&& xpos<=752&&ypos >=400 &&ypos <=416)||(xpos >=784&& xpos<=800&&ypos >= 352&&ypos <=368)||(xpos >=784&& xpos<=800&&ypos >=400 &&ypos <=416)){
+                return [512+256,256+128]
+            }
             return [player.body.position.x,player.body.position.y]
         }
         else{
@@ -270,8 +176,6 @@
     
         preload: function (){
             
-            
-            
             //images
             if (true){
                 this.load.image('rock','enviormentAssets/mountain_rock.png')
@@ -306,16 +210,10 @@
         
         },
         create: function (){   
-            /*this.input.on('pointerdown', function (event) {
-            if(score <= 0){
-                console.log("thing");
-                this.scene.start('sceneTwo'); 
-            };
             
-        }, this);*/
             this.add.image(256+512, 128+256, 'map1');
             scoreText = this.add.text(24, 0, 'Time: 9999', { fontSize: '16px', fill: '#FFF' });
-            //enemiesText = this.add.text(512-16*8, 0, 'Enemies: 24', { fontSize: '16px', fill: '#FFF' });
+            
 
             goblin = this.physics.add.sprite(512, 256+32, 'gob');
             health = this.physics.add.staticGroup();
@@ -326,10 +224,11 @@
                 //i += 1;
             //}
             //load things
+            pathfind =this.physics.add.staticGroup();
             platforms = this.physics.add.staticGroup();
             if (true){
-                platforms.create(512,382,'fheart')
-                platforms.create(1024,512,'fheart')
+                platforms.create(784,400,'fheart')
+                platforms.create(800,352,'fheart')
                 //temp barriers
                 if (true){
                     cbar(-40, -22-16*6, 'grock');
@@ -742,11 +641,9 @@
 
             this.physics.add.collider(player, platforms);
             //this.physics.add.collider(player,goblin);
-            //this.physics.add.collider(platforms,goblin);
+            this.physics.add.collider(platforms,goblin);
             
-            //this.physics.arcade.collide(goblin,pattack,enemydamage(2,.5,goblin));
-            
-            //goblin.create(256,128,'fheart');
+           
         
         },
         update: function (){
@@ -759,31 +656,31 @@
                     player.setVelocityX(-velocity);
                     player.setVelocityY(-velocity);
                     player.anims.play('left', true);
-                    dir = 7
+                    
                 }
                 else if((cursors.left.isUp && cursors.right.isDown) && (cursors.up.isDown && cursors.down.isUp)){
                     player.setVelocityX(velocity);
                     player.setVelocityY(-velocity);
                     player.anims.play('right', true);
-                    dir = 1
+                    
                 }
                 else if((cursors.left.isUp && cursors.right.isUp) && (cursors.up.isDown && cursors.down.isUp)){
                     player.setVelocityX(0);
                     player.setVelocityY(-velocity);
                     player.anims.play('up', true);
-                    dir = 0
+                    
                 }
                 else if((cursors.left.isDown && cursors.right.isUp) && (cursors.up.isUp && cursors.down.isDown)){
                     player.setVelocityX(-velocity);
                     player.setVelocityY(velocity);
                     player.anims.play('left', true);
-                    dir = 5
+                    
                 }
                 else if((cursors.left.isUp && cursors.right.isDown) && (cursors.up.isUp && cursors.down.isDown)){
                     player.setVelocityX(velocity);
                     player.setVelocityY(velocity);
                     player.anims.play('right', true);
-                    dir = 3
+                    
                 }
                 else if (cursors.left.isDown){
                     player.setVelocityX(-velocity);
@@ -791,14 +688,14 @@
                     //bpress();
 
                     player.anims.play('left', true);
-                    dir =6
+                    
                 }
                 else if (cursors.right.isDown){
                     player.setVelocityX(velocity);
                     player.setVelocityY(0);
-                    //bpress();
+                    
                     player.anims.play('right', true);
-                    dir =2
+                    
                 }
 
                
@@ -807,66 +704,14 @@
                     player.setVelocityY(velocity);
                     //bpress(player);
                     player.anims.play('down', true);
-                    dir = 4
+                    
                 }
                 else {
                     player.setVelocityY(0);
                     player.setVelocityX(0);
                 }
             }
-            if (true){
-                if(cursors.space.isDown){
-                    console.log(dir);
-                    if(dir == 0){
-                        pattack.create(player.body.position.x,player.body.position.y -8,'pattack_UP');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, //player.body.position.y);
-                    }
-                    else if(dir == 1){
-                        pattack.create(player.body.position.x +16,player.body.position.y +4,'pattack_UP');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, //player.body.position.y);
-                    }
-                    else if(dir == 2){
-                        pattack.create(player.body.position.x + 16,player.body.position.y+8,'pattack_RIGHT');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, //player.body.position.y);
-                    }
-                    else if(dir == 3){
-                        pattack.create(player.body.position.x +12,player.body.position.y +12,'pattack_RIGHT');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, //player.body.position.y);
-                    }
-                    else if(dir == 4){
-                        pattack.create(player.body.position.x+8,player.body.position.y +16,'pattack_DOWN');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, player.body.position.y);
-                    }
-                    else if(dir == 5){
-                        pattack.create(player.body.position.x +4,player.body.position.y+8 +4,'pattack_DOWN');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, player.body.position.y);
-                    }
-                    else if(dir == 6){
-                        pattack.create(player.body.position.x ,player.body.position.y+8 ,'pattack_LEFT');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, player.body.position.y);
-                    }
-                    else if(dir == 7){
-                        pattack.create(player.body.position.x +4,player.body.position.y +4,'pattack_LEFT');
-                        goblin.setActive(false).setVisible(false);
-                        goblin.destory();
-                        //pattack.destory(player.body.positon.x, player.body.position.y);
-                    }
-                }
-            }
+            
             //goblin movement
             playerzone = zone(player.body.position.x,player.body.position.y);
             gobzone = zone(goblin.body.position.x,goblin.body.position.y);
@@ -893,6 +738,7 @@
                   pcalc =[512,382]  
                 }
             }
+            //pathfind.create(pcalc[0],pcalc[1],'hheart')
             console.log("gob"+gobzone);
             console.log(playerzone)
             //enemyzone
@@ -910,7 +756,7 @@
                         
                     }
                     else if (Math.abs(pcalc[0] - goblin.body.position.x)< Math.abs(pcalc[1]-goblin.body.position.y)){
-                        if(player.body.position.y - goblin.body.position.y>0){
+                        if(pcalc[1] - goblin.body.position.y>0){
                             goblin.setVelocityY(velocity);
                         }
                         else{
@@ -920,199 +766,10 @@
                         gobmove = false;
                     }
                 }
-                else if(gobzone == "tl"){
-                    goblin.setVelocityX(100);
-                    goblin.setVelocityY(100);
-                }
-                else if(gobzone == "tr"){
-                    goblin.setVelocityX(-100);
-                    goblin.setVelocityY(100);
-                }    
-                else if(gobzone == "bl"){
-                    goblin.setVelocityX(100);
-                    goblin.setVelocityY(-100);
-                }
-                else if(gobzone == "br"){
-                    goblin.setVelocityX(-100);
-                    goblin.setVelocityY(-100);
-                }
-                else if(gobzone == 1){
-                    if(playerzone ==6||playerzone ==9||playerzone == 10||playerzone == 11||playerzone >=14){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
-                    else if(playerzone == 2||playerzone == 3||playerzone == 4||playerzone == 5|| playerzone == 7 ||playerzone == 8||playerzone == 12||playerzone == 13){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                }
-                else if(gobzone == 2||gobzone == 10||gobzone == 18){
-                    if(playerzone == 1||playerzone == 6||playerzone == 5||playerzone == 14||playerzone == 17|| playerzone == 9){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100);
-                    }
-                    else{
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                }
-                else if(gobzone == 3){
-                    if(playerzone >= 4){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                    else if(playerzone == 2||playerzone == 1){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100);
-                    }
-                    
-                }
-                else if(gobzone == 4||gobzone == 12||gobzone == 20){
-                    if(playerzone == 2||playerzone == 3||playerzone == 8||playerzone == 18||playerzone == 17||playerzone == 19||playerzone == 11){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100);
-                    }
-                    else{
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                }
-                else if(gobzone == 5){
-                    if(playerzone ==1||playerzone ==2||playerzone ==3||playerzone ==4||playerzone ==6||playerzone ==7||playerzone ==9||playerzone ==10||playerzone ==11||playerzone ==14||playerzone ==15||playerzone ==17||playerzone ==18||playerzone ==19||playerzone ==20){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100)
-                    }
-                    else if(playerzone ==8|playerzone ==12||playerzone == 13||playerzone ==16||playerzone ==21){
-                        goblin.setVelocityX(100)
-                        goblin.setVelocityY(0);
-                    }
-                    
-                        
-                }
-                else if(gobzone == 6||gobzone ==7||gobzone ==8){
-                    if(playerzone <=5){
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                    
-                    else{
-                     goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
-                }
-                else if(gobzone == 9){
-                    if(playerzone >= 14){
-                       goblin.setVelocityX(100);
-                        goblin.setVelocityY(0); 
-                    }
-                    else if(playerzone == 11||playerzone ==10||playerzone ==12 || playerzone == 13|| playerzone == 7){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100); 
-                    }
-                    
-                    else{
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0); 
-                    }
-                }
-                else if(gobzone == 11){
-                    if(playerzone <=5|| playerzone == 7){
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0)
-                    }
-                    else if(playerzone >= 17|| playerzone == 15){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0)
-                    }
-                    else if(playerzone == 6||playerzone == 9||playerzone == 10||playerzone ==14){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100)
-                    }
-                    else if(playerzone == 8||playerzone == 12||playerzone == 13||playerzone ==16){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100)
-                    }
-                }
-                else if(gobzone == 13){
-                    if(playerzone <= 5||playerzone == 8){
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0)
-                    }
-                    else if(playerzone >=16){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0)
-                    }
-                    else{
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100)
-                    }
-                }
-                else if(gobzone == 14||gobzone ==15||gobzone ==16){
-                    if(playerzone >=17){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
-                    else{
-                     goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                }
-                else if(gobzone ==15){
-                    if(playerzone >=17){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
-                    else{
-                     goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                }
-                else if(gobzone ==16){
-                    if(playerzone >=17){
-                        goblin.setVelocityX(100);
-                        goblin.setVelocityY(0);
-                    }
-                    else{
-                     goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                }
-                else if(gobzone == 17){
-                    if(playerzone >= 15){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                    else{
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0)
-                    }
-                }
-                else if(gobzone ==19){
-                    if(playerzone == 17|| playerzone == 18||playerzone == 14){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100);
-                    }
-                    else if(playerzone == 20||playerzone == 21||playerzone ==16){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(100);
-                    }
-                    
-                    else{
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                }
-                else if(gobzone == 21){
-                    if(playerzone >= 17||playerzone == 14|| playerzone == 15){
-                        goblin.setVelocityX(0);
-                        goblin.setVelocityY(-100);
-                    }
-                    
-                    else{
-                        goblin.setVelocityX(-100);
-                        goblin.setVelocityY(0);
-                    }
-                }
+                
+                
+                
+                
             }
             
             
@@ -1123,26 +780,7 @@
         
     });
     
-    var sceneTwo = new Phaser.Class({
-        Extends: Phaser.Scene,
-        initialize:
-        function sceneTwo(){
-            Phaser.Scene.call(this,{key:'sceneTwo'});
-        },
-        preload: function(){
-            this.load.image('bg', 'ladyelaine.png');
-            
-        },
-        create: function(){
-            this.add.image(400, 300, 'bg').setScale(.25);
-            scoreText = this.add.text(16, 16, 'Jump: 9999', { fontSize: '32px', fill: '#183' });
-            gametext = this.add.text(50, 300, 'the game is over there is nothing left', { fontSize: '32px', fill: '#30a' });
-        },
-        update: function(){
-            bpress();
-            
-        }
-    });
+    
         
         
     
@@ -1156,7 +794,7 @@
                 gravity: { y: 0 }
             }
         },
-        scene: [sceneOne,sceneTwo]
+        scene: [sceneOne]
     };
     var game = new Phaser.Game(config);
     </script>
